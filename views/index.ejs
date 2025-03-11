@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">PETSHOP</div>
+        <ul>
+            <li><a href="/">Trang chủ</a></li>
+            <li><a href="/products">Sản phẩm</a></li>
+            <li><a href="/cart">Giỏ hàng</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Chào mừng đến với PetShop</h1>
+        <p>Cửa hàng phụ kiện và dịch vụ tốt nhất cho thú cưng</p>
+        <a href="/products" class="btn">Xem Sản Phẩm</a>
+    </section>
+
+    <!-- PRODUCT LIST -->
+    <section class="products">
+        <% products.forEach(product => { %>
+            <div class="product-card">
+                <img src="<%= product.image %>" alt="<%= product.name %>">
+                <h3><%= product.name %></h3>
+                <p>Giá: <%= product.price %> VND</p>
+                <a href="/views/productDetail.ejs/<%= product._id %>" class="btn btn-primary">Xem chi tiết</a>
+                <!-- <a href="/cart/add/<%= product._id %>" class="btn btn-success">Thêm giỏ hàng</a> -->
+
+                <form action="/views/cart/add" method="POST">
+                    <input type="hidden" name="productId" value="<%= product._id %>">
+                    <button type="submit" class="btn btn-success">Thêm giỏ hàng</button>
+                </form>
+                
+                
+            </div>
+        <% }); %>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2025 PetShop - All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

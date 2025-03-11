@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">PETSHOP</div>
+        <ul>
+            <li><a href="/">Trang chủ</a></li>
+            <li><a href="/products">Sản phẩm</a></li>
+            <li><a href="/cart">Giỏ hàng</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Giỏ hàng của bạn</h1>
+    </section>
+
+    <section class="products">
+        <% if (cart && cart.products.length > 0) { %>
+            <% cart.products.forEach(item => { %>
+                <div class="product-card">
+                    <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>">
+                    <h3><%= item.productId.name %></h3>
+                    <p>Giá: <%= item.productId.price.toLocaleString() %> VND</p>
+                    <p>Số lượng: <%= item.quantity %></p>
+                    <a href="/cart/remove/<%= item.productId._id %>" class="btn">Xóa</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>Giỏ hàng của bạn đang trống.</p>
+        <% } %>
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 PetShop - All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>
