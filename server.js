@@ -21,17 +21,17 @@ const __dirname = path.dirname(__filename);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Cấu hình middleware
-app.use(express.static(path.join(__dirname, "public"))); // Thư mục chứa file tĩnh
-app.use(express.urlencoded({ extended: true })); // Middleware xử lý form data
-app.use(express.json()); // Middleware xử lý JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/uploads", express.static("public/uploads"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Sử dụng các tuyến đường
 app.use("/", indexRoutes);
 app.use("/cart", cartRoutes);
-app.use("/products", productRoutes);  // Đổi lại từ /productsDetail -> /products
+app.use("/products", productRoutes);
 
-// Khởi động server
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại: http://localhost:${PORT}`);
 });

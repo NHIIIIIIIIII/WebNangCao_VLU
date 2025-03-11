@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết sản phẩm</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1><%= product.name %></h1>
-    <img src="/public/images/<%= product.image %>" alt="<%= product.name %>">
-    <p><%= product.description %></p>
-    <p>Giá: <%= product.price %> VND</p>
-    <form action="/cart/add/<%= product._id %>" method="POST">
-        <button type="submit">Thêm vào giỏ hàng</button>
-    </form>
+    <nav class="navbar">
+        <div class="logo">PETSHOP</div>
+        <ul>
+            <li><a href="/">Trang chủ</a></li>
+            <li><a href="/products">Sản phẩm</a></li>
+            <li><a href="/cart">Giỏ hàng</a></li>
+        </ul>
+    </nav>
 
-    <!-- FOOTER -->
+    <section class="product-detail">
+        <% if (product) { %>
+            <h1>Chi tiết sản phẩm</h1>
+            <div class="detail-container">
+                <img src="<%= product.image %>" alt="<%= product.name %>" onerror="this.src='/images/default.jpg';">
+                <div class="detail-info">
+                    <h2><%= product.name %></h2>
+                    <p><strong>Giá:</strong> <%= product.price %> VNĐ</p>
+                    <p><strong>Mô tả:</strong> <%= product.description || 'Không có mô tả' %></p>
+                    <form action="/cart/add" method="POST">
+                        <input type="hidden" name="productId" value="<%= product._id %>">
+                        <label for="quantity">Số lượng:</label>
+                        <input type="number" name="quantity" value="1" min="1" required>
+                        <button type="submit" class="btn btn-success">Thêm vào giỏ hàng</button>
+                    </form>
+                </div>
+            </div>
+        <% } else { %>
+            <p>Sản phẩm không tồn tại.</p>
+        <% } %>
+    </section>
+
     <footer class="footer">
         <p>© 2025 PetShop - All Rights Reserved</p>
     </footer>

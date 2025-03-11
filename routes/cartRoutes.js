@@ -1,16 +1,18 @@
 import express from "express";
-import { getCart, addToCart, removeFromCart } from "../controllers/cartController.js";
+import { getCart, addToCart, removeFromCart, clearCart } from "../controllers/cartController.js";
 
 const router = express.Router();
 
 // Xem giỏ hàng
 router.get("/", getCart);
 
-// Thêm sản phẩm vào giỏ hàng (hỗ trợ cả GET & POST)
-router.get("/add/:id", addToCart);
-router.post("/add/:id", addToCart);
+// Thêm sản phẩm vào giỏ hàng
+router.post("/add", addToCart);
 
 // Xóa sản phẩm khỏi giỏ hàng
 router.post("/remove/:id", removeFromCart);
+
+// Xóa toàn bộ giỏ hàng
+router.post("/clear", clearCart);
 
 export default router;

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
     <nav class="navbar">
         <div class="logo">PETSHOP</div>
         <ul>
@@ -17,29 +16,36 @@
         </ul>
     </nav>
 
-    <section class="hero">
-        <h1>Giỏ hàng của bạn</h1>
-    </section>
-
-    <section class="products">
-        <% if (cart && cart.products.length > 0) { %>
-            <% cart.products.forEach(item => { %>
-                <div class="product-card">
-                    <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>">
-                    <h3><%= item.productId.name %></h3>
-                    <p>Giá: <%= item.productId.price.toLocaleString() %> VND</p>
-                    <p>Số lượng: <%= item.quantity %></p>
-                    <a href="/cart/remove/<%= item.productId._id %>" class="btn">Xóa</a>
-                </div>
-            <% }); %>
+    <section class="cart">
+        <h1>Giỏ hàng</h1>
+        <% if (cart && cart.products && cart.products.length > 0) { %>
+            <ul>
+                <% cart.products.forEach(item => { %>
+                    <li class="cart-item">
+                        <% if (item.productId) { %>
+                            <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>" onerror="this.src='/images/default.jpg';">
+                            <div class="cart-item-details">
+                                <h3><%= item.productId.name %></h3>
+                                <p>Giá: <%= item.productId.price %> VND</p>
+                                <p>Số lượng: <%= item.quantity %></p>
+                                <form action="/cart/remove/<%= item.productId._id %>" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">Xóa</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
+            <form action="/cart/clear" method="POST" style="margin-top: 20px; text-align: center;">
+                <button type="submit" class="btn btn-warning" onclick="return confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?');">Xóa tất cả</button>
+            </form>
         <% } else { %>
-            <p>Giỏ hàng của bạn đang trống.</p>
+            <p>Giỏ hàng của bạn trống.</p>
         <% } %>
     </section>
 
     <footer class="footer">
         <p>© 2025 PetShop - All Rights Reserved</p>
     </footer>
-
 </body>
 </html>
